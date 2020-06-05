@@ -32,6 +32,8 @@ namespace AngularMongoASP
 
             services.AddSingleton<BookService>();
             services.AddSingleton<MyBookService>();
+            services.AddSingleton<IFileService, FileService>();
+
 
             services.AddCors();
 

@@ -1,3 +1,4 @@
+using System;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using AngularMongoASP.Models;
@@ -7,11 +8,14 @@ namespace AngularMongoASP.Services
     public class BookService
     {
         private readonly IMongoCollection<Book> _books;
+        private readonly IFileService _fileService;
 
-        public BookService(IBookstoreDatabaseSettings settings)
+
+        public BookService(IBookstoreDatabaseSettings settings, IFileService fileService)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
+            _fileService = fileService;
 
             _books = database.GetCollection<Book>(settings.BooksCollectionName);
         }
@@ -24,6 +28,10 @@ namespace AngularMongoASP.Services
 
         public Book Create(Book book)
         {
+            var test = _fileService.Save(book.Icon);
+            Console.Write(test.Result);
+
+            book.IconPath = test.Result;
             _books.InsertOne(book);
             return book;
         }

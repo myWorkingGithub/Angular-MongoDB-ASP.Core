@@ -12,11 +12,13 @@ export class ApiService {
   private myUrl = 'http://localhost:3000/my';
   protected httpHeaders: HttpHeaders = new HttpHeaders();
   protected httpHeadersForm: HttpHeaders = new HttpHeaders();
+  protected httpHeadersFormData: HttpHeaders = new HttpHeaders();
   constructor(
     private http: HttpClient
   ) {
     this.httpHeaders.append('Content-Type', 'application/json, charset=utf-8');
     this.httpHeadersForm.append('Content-Type', 'application/x-www-form-urlencoded');
+    this.httpHeadersFormData.append('Content-Type', 'multipart/form-data');
   }
 
   getAllBooks(): Observable<Array<IBook>> {
@@ -49,5 +51,15 @@ export class ApiService {
 
   updateOneMyBook(bookId, newBook: IBook): Observable<any> {
     return this.http.put<any>(this.myUrl + `books/${bookId}`, newBook, {headers: this.httpHeaders});
+  }
+ /* uploadFile(file: FormData): Observable<any> {
+    return this.http.post<any>(this.url + `api/upload`, file, {
+      reportProgress: true,
+    });
+  }*/
+  uploadFile(file: FormData): Observable<any> {
+    return this.http.post<any>(this.url + `file`, file, {
+      reportProgress: true,
+    });
   }
 }

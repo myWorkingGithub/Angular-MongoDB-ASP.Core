@@ -8,6 +8,8 @@ export interface IBook {
   category: string;
   id: string;
   price: number;
+  iconPath: string;
+  icon: FormData;
 }
 
 @Component({
@@ -18,10 +20,11 @@ export class FetchDataComponent implements OnInit {
 
   public isEdit: boolean;
   public isMyEdit: boolean;
+  public myFile: FormData;
   public books$: Observable<Array<IBook>>;
   public myBooks$: Observable<Array<IBook>>;
-  public newBook: IBook = {id: null, bookName: null, author: null, category: null, price: null};
-  public newMyBook: IBook = {id: null, bookName: null, author: null, category: null, price: null};
+  public newBook: IBook = {id: '', bookName: 'bookName', author: 'author', category: 'category', price: 123, icon: null, iconPath: null};
+  public newMyBook: IBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconPath: null};
   constructor(
     private apiService: ApiService
   ) {
@@ -42,11 +45,12 @@ export class FetchDataComponent implements OnInit {
       );
   }
   public addOneBook(): void {
+    console.log(this.newBook);
     this.apiService.addOneBook(this.newBook)
       .subscribe(
         res => {
           console.log(res);
-          this.newBook = {id: null, bookName: null, author: null, category: null, price: null};
+          this.newBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconPath: null};
           this.getAllBooks();
         },
         error => console.log(error)
@@ -57,7 +61,7 @@ export class FetchDataComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.newBook = {id: null, bookName: null, author: null, category: null, price: null};
+          this.newBook = {id: null, bookName: null, author: null, category: null, price: null, iconPath: null, icon: null};
           this.getAllBooks();
         },
         error => console.log(error)
@@ -79,7 +83,7 @@ export class FetchDataComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.newMyBook = {id: null, bookName: null, author: null, category: null, price: null};
+          this.newMyBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconPath: null};
           this.getAllMyBooks();
         },
         error => console.log(error)
@@ -90,7 +94,7 @@ export class FetchDataComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.newMyBook = {id: null, bookName: null, author: null, category: null, price: null};
+          this.newMyBook = {id: null, bookName: null, author: null, category: null, price: null, iconPath: null, icon: null};
           this.getAllMyBooks();
         },
         error => console.log(error)
@@ -102,12 +106,12 @@ export class FetchDataComponent implements OnInit {
   private getAllMyBooks(): void {
     this.myBooks$ = this.apiService.getAllMyBooks();
   }
+  public uploadFile(): void {
+    this.apiService.uploadFile(this.myFile).subscribe(
+      res => {
+        console.log(res);
+      }, error => console.error(error)
+    );
+  }
 
-}
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
 }

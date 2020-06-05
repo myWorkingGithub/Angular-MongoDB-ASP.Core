@@ -10,6 +10,11 @@
   <button (click)="isEdit = !isEdit; newBook.id = book.id; newBook.bookName = book.bookName; newBook.category = book.category; newBook.author = book.author; newBook.price = book.price;">to update</button>
 </div>
 
+<app-upload (fileImage)="myFile = $event"></app-upload>
+
+<button (click)="uploadFile()">UPLOAD</button>
+
+
 <div class="form-group">
   <label>bookName</label>
   <input class="form-control" [(ngModel)]="newBook.bookName" type="text">
@@ -22,6 +27,7 @@
   <button (click)="addOneBook()">add New Book</button>
   <button (click)="updateOneBook(newBook.id)" *ngIf="isEdit">update</button>
 </div>
+
 
 
 <h1>CRUD for MY Books</h1>

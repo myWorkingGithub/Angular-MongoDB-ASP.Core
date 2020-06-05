@@ -1,0 +1,10 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="cozumtech_inspections" />
+    <inspection_tool class="JSUnresolvedFunction" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="JSUnusedGlobalSymbols" enabled="false" level="INFORMATION" enabled_by_default="false" />
+    <inspection_tool class="JSUnusedLocalSymbols" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="NpmUsedModulesInstalled" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="TsLint" enabled="true" level="ERROR" enabled_by_default="true" />
+  </profile>
+</component>
