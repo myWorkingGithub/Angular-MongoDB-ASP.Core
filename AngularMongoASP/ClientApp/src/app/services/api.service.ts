@@ -29,8 +29,11 @@ export class ApiService {
     return this.http.delete<any>(this.url + `books/${bookId}`, {headers: this.httpHeaders});
   }
 
+  /*addOneBook(newBook: IBook, file: FormData): Observable<any> {
+    return this.http.post<any>(this.url + `books`, {newBook, file}, {headers: this.httpHeadersFormData});
+  } */
   addOneBook(newBook: IBook): Observable<any> {
-    return this.http.post<any>(this.url + `books`, newBook, {headers: this.httpHeaders});
+    return this.http.post<any>(this.url + `books`, newBook, {headers: this.httpHeadersFormData, reportProgress: true});
   }
 
   updateOneBook(bookId, newBook: IBook): Observable<any> {

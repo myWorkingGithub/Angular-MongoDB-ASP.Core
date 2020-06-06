@@ -1,24 +1,54 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using AngularMongoASP.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 
 namespace AngularMongoASP.Services
 {
     public interface IFileService
     {
         Task<string> Save(IFormFile file);
+        Task<string> UploadProfilePicture(IFormFile file);
+        Task<ObjectId> UploadFile(IFormFile file);
     }
 
     public class FileService : IFileService
     {
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly GridFSBucket _bucket;
 
-        public FileService(IWebHostEnvironment hostEnvironment)
+
+        public FileService(IWebHostEnvironment hostEnvironment, IBookstoreDatabaseSettings settings)
         {
             _hostEnvironment = hostEnvironment;
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+
+            var gridFsBucket = new GridFSBucketOptions()
+            {
+                BucketName = "images",
+                ChunkSizeBytes = 1048576, // 1МБ
+            };
+            _bucket = new GridFSBucket(database, gridFsBucket);
+        }
+        public async Task<ObjectId> UploadFile(IFormFile file)
+        {
+            try
+            {
+                var stream = file.OpenReadStream();
+                var filename = file.FileName;
+                return await _bucket.UploadFromStreamAsync(filename, stream);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectId(ex.ToString());
+            }
         }
 
         public async Task<string> Save(IFormFile file)
@@ -42,12 +72,12 @@ namespace AngularMongoASP.Services
             return absolute;
         }
 
-        public async Task<string> UploadProfilePicture([FromForm(Name = "uploadedFile")] IFormFile file, long userId)
+        public async Task<string> UploadProfilePicture([FromForm(Name = "uploadedFile")] IFormFile file)
         {
             /*if (file == null || file.Length == 0)
                 throw new UserFriendlyException("Please select profile picture");*/
 
-            var folderName = Path.Combine("Resources", "ProfilePics");
+            var folderName = Path.Combine("Uploads", "BooksIcons");
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
             if (!Directory.Exists(filePath))
@@ -55,7 +85,8 @@ namespace AngularMongoASP.Services
                 Directory.CreateDirectory(filePath);
             }
 
-            var uniqueFileName = $"{userId}_profilepic.png";
+            var uniqueFileName = folderName;
+
             var dbPath = Path.Combine(folderName, uniqueFileName);
 
             using (var fileStream = new FileStream(Path.Combine(filePath, uniqueFileName), FileMode.Create))
@@ -65,6 +96,7 @@ namespace AngularMongoASP.Services
 
             return dbPath;
         }
+
 
     }
 }

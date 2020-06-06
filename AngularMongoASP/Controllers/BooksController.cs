@@ -1,19 +1,27 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AngularMongoASP.Models;
 using AngularMongoASP.Services;
+using Microsoft.AspNetCore.Http;
+using MongoDB.Bson;
 
 namespace AngularMongoASP.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Consumes("application/json", "multipart/form-data")]
     public class BooksController : ControllerBase
     {
         private readonly BookService _bookService;
+        private readonly IFileService _fileService;
 
-        public BooksController(BookService bookService)
+        public BooksController(BookService bookService, IFileService fileService)
         {
             _bookService = bookService;
+            _fileService = fileService;
+
         }
 
         [HttpGet]
@@ -34,10 +42,11 @@ namespace AngularMongoASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Book> Create(Book book)
+        public IActionResult Create(Book book)
         {
+            var test = _fileService.UploadProfilePicture(book.Icon);
+            book.IconPath = test.ToString();
             _bookService.Create(book);
-
             return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
         }
 

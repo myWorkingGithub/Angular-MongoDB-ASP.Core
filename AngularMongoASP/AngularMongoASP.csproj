@@ -15,6 +15,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.4" />
         <PackageReference Include="MongoDB.Driver" Version="2.9.0" />
+        <PackageReference Include="MongoDB.Driver.GridFS" Version="2.9.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -22,6 +23,11 @@
         <Content Remove="$(SpaRoot)**" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

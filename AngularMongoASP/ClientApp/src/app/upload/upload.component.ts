@@ -9,7 +9,8 @@ import { ApiService } from '../services/api.service';
 })
 export class UploadComponent implements OnInit {
 
-  @Output() fileImage: EventEmitter<FormData> = new EventEmitter();
+ // @Output() fileImage: EventEmitter<FormData> = new EventEmitter();
+  @Output() fileImage: EventEmitter<any> = new EventEmitter();
   public progress: number;
   public message: string;
   constructor(
@@ -26,15 +27,15 @@ export class UploadComponent implements OnInit {
 
   upload(event) {
 
-    console.log(event.target.files);
+  //  console.log(event.target.files[0]);
    // this.asset.imageFile = event.target.files;
-    this.fileImage.emit(event.target.files);
+    this.fileImage.emit(event.target.files[0]);
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
       //  this.asset.imageUrl = e.target.result;
       };
-      reader.readAsDataURL(event.target.files[0]);
+    //  this.fileImage.emit(reader.readAsDataURL(event.target.files[0]));
     }
   }
 
@@ -42,14 +43,11 @@ export class UploadComponent implements OnInit {
     if (files.length === 0)
       return;
     const formData = new FormData();
-    for (let file of files)
-    //  formData.append('file', file, file.name);
-      formData.append(file.name,  file);
-
-
+    for (const file of files) {
+      formData.append(file.name, file);
+    }
+    //  formData.append('uploadedFile', file);
     this.fileImage.emit(formData);
-
-
     /*const uploadReq = new HttpRequest('POST', `api/upload`, formData, {
       reportProgress: true,
     });

@@ -1,3 +1,4 @@
+using System;
 using AngularMongoASP.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -5,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AngularMongoASP.Controllers
 {
-    [Authorize]
+   // [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class FileController : ControllerBase
@@ -21,10 +22,8 @@ namespace AngularMongoASP.Controllers
        // [Route("upload")]
         public IActionResult Upload( IFormFile file)
         {
-            _fileService.Save(file);
-
-
-            return Ok();
+             _fileService.UploadFile(file);
+             return Ok();
         }
     }
 }
