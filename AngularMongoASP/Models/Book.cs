@@ -1,9 +1,6 @@
-using System.IO;
-using System.Net;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Driver.GridFS;
 
 namespace AngularMongoASP.Models
 {

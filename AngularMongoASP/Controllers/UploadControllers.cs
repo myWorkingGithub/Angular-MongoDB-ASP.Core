@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AngularMongoASP.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UploadController : Controller
     {
         private readonly IHostEnvironment _hostEnvironment;
@@ -78,7 +78,7 @@ namespace AngularMongoASP.Controllers
             try
             {
                 var file = Request.Form.Files[0];
-                string folderName = "Upload";
+                string folderName = "Uploads";
                 string webRootPath = _hostEnvironment.ContentRootPath;
                 string newPath = Path.Combine(webRootPath, folderName);
                 if (!Directory.Exists(newPath))
@@ -96,7 +96,7 @@ namespace AngularMongoASP.Controllers
                         file.CopyTo(stream);
                     }
                 }
-                return Json("Upload Successful. " + newPath);
+                return Json("Upload Successful. " + newPath +"/" + file);
             }
             catch (System.Exception ex)
             {

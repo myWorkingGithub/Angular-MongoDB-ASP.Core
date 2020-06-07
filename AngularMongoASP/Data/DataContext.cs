@@ -30,7 +30,6 @@ using MongoDB.Driver.GridFS;
         {
             get
             {
-
                 return _database.GetCollection<Note>(_databaseSettings.NotesCollectionName);
             }
         }
@@ -38,7 +37,6 @@ using MongoDB.Driver.GridFS;
         {
             get
             {
-
                 return _database.GetCollection<Book>(_databaseSettings.BooksCollectionName);
             }
         }
@@ -46,7 +44,6 @@ using MongoDB.Driver.GridFS;
         {
             get
             {
-
                 return _database.GetCollection<Book>(_databaseSettings.MyBooksCollectionName);
             }
         }
@@ -56,6 +53,13 @@ using MongoDB.Driver.GridFS;
             get
             {
                 return _bucket;
+            }
+        }
+        public IMongoDatabase MongoDatabase
+        {
+            get
+            {
+                return _database;
             }
         }
 

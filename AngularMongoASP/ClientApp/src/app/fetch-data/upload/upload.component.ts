@@ -17,7 +17,6 @@ export class UploadComponent implements OnInit {
   ngOnInit(): void {}
 
   public upload(event) {
-
     this.fileImage.emit(event.target.files[0]);
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();

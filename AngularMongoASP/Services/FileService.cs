@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AngularMongoASP.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
 namespace AngularMongoASP.Services
@@ -20,8 +19,6 @@ namespace AngularMongoASP.Services
     {
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly DataContext _dataContext = null;
-
-
         public FileService(IWebHostEnvironment hostEnvironment, IDatabaseSettings databaseSettings)
         {
             _hostEnvironment = hostEnvironment;
@@ -62,12 +59,13 @@ namespace AngularMongoASP.Services
             return absolute;
         }
 
-        public async Task<string> UploadProfilePicture([FromForm(Name = "uploadedFile")] IFormFile file)
+      //  public async Task<string> UploadProfilePicture([FromForm(Name = "uploadedFile")] IFormFile file)
+        public async Task<string> UploadProfilePicture(IFormFile file)
         {
             /*if (file == null || file.Length == 0)
                 throw new UserFriendlyException("Please select profile picture");*/
 
-            var folderName = Path.Combine("Uploads", "BooksIcons");
+            var folderName = Path.Combine("Uploads", "Images");
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
             if (!Directory.Exists(filePath))
@@ -86,7 +84,5 @@ namespace AngularMongoASP.Services
 
             return dbPath;
         }
-
-
     }
 }

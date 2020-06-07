@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,9 +8,10 @@ using MongoDB.Bson;
 
 namespace AngularMongoASP.Controllers
 {
+    [Produces("application/json")]
+    [Consumes("application/json", "multipart/form-data")]
     [ApiController]
     [Route("[controller]")]
-    [Consumes("application/json", "multipart/form-data")]
     public class BooksController : ControllerBase
     {
         private readonly BookService _bookService;
@@ -24,8 +24,7 @@ namespace AngularMongoASP.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Book>> Get() =>
-            _bookService.Get();
+        public ActionResult<List<Book>> Get() => _bookService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetBook")]
         public ActionResult<Book> Get(string id)
@@ -41,18 +40,11 @@ namespace AngularMongoASP.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Book book)
+        public async Task<Book> Create(Book book)
         {
-            var test = _fileService.UploadProfilePicture(book.Icon);
-            book.IconPath = test.ToString();
-            _bookService.Create(book);
-            return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
-        }
-
-        [HttpPost("uploadFile")]
-        public async Task<ObjectId> UploadFile(IFormFile file)
-        {
-            return await _fileService.UploadFile(file);
+            var newBook = await _bookService.Create(book);
+           // return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
+           return newBook;
         }
 
         [HttpPut("{id:length(24)}")]

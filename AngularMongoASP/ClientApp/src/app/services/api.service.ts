@@ -67,7 +67,7 @@ export class ApiService {
     });
   }*/
   uploadFile(file: FormData): Observable<any> {
-    return this.http.post<any>(this.url + `file`, file, {
+    return this.http.post<any>(this.url + `books/uploadFile`, file, {
       reportProgress: true,
     });
   }
