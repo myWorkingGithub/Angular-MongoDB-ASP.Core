@@ -7,7 +7,7 @@ export interface IBook {
   bookName: string;
   category: string;
   id: string;
-  price: number;
+  price?: number;
   iconPath: string;
   icon: FormData;
 }

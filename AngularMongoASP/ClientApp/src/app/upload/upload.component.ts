@@ -1,6 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { HttpClient, HttpEventType, HttpRequest } from '@angular/common/http';
-import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-upload',
@@ -9,26 +7,17 @@ import { ApiService } from '../services/api.service';
 })
 export class UploadComponent implements OnInit {
 
- // @Output() fileImage: EventEmitter<FormData> = new EventEmitter();
-  @Output() fileImage: EventEmitter<any> = new EventEmitter();
+  @Output() fileImage: EventEmitter<FormData> = new EventEmitter();
+//  @Output() fileImage: EventEmitter<any> = new EventEmitter();
   public progress: number;
   public message: string;
   constructor(
-    private http: HttpClient,
-    private apiService: ApiService
   ) { }
 
-  ngOnInit(): void {
-  /*  this.apiService.getOneImage('Intelico One – Chromium_027')
-      .subscribe(resp => {
-        console.log(resp);
-      }, error =>  console.log(error));*/
-  }
+  ngOnInit(): void {}
 
-  upload(event) {
+  public upload(event) {
 
-  //  console.log(event.target.files[0]);
-   // this.asset.imageFile = event.target.files;
     this.fileImage.emit(event.target.files[0]);
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -39,7 +28,7 @@ export class UploadComponent implements OnInit {
     }
   }
 
-  upload2(files) {
+  public uploadFormData(files) {
     if (files.length === 0)
       return;
     const formData = new FormData();
@@ -48,15 +37,6 @@ export class UploadComponent implements OnInit {
     }
     //  formData.append('uploadedFile', file);
     this.fileImage.emit(formData);
-    /*const uploadReq = new HttpRequest('POST', `api/upload`, formData, {
-      reportProgress: true,
-    });
-    this.http.request(uploadReq).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress)
-        this.progress = Math.round(100 * event.loaded / event.total);
-      else if (event.type === HttpEventType.Response)
-        this.message = event.body.toString();
-    });*/
   }
 
 }

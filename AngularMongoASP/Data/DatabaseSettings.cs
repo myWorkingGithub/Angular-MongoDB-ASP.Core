@@ -1,21 +1,17 @@
-namespace AngularMongoASP.Models
+namespace AngularMongoASP.Data
 {
-
-    public interface IBooksCollections
-    {
-        public string Books { get; set; }
-        public string MyBooks { get; set; }
-    }
-    public interface IBookstoreDatabaseSettings
+    public interface IDatabaseSettings
     {
         public string BooksCollectionName { get; set; }
+        public string NotesCollectionName { get; set; }
         public string MyBooksCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
     }
 
-    public class BookstoreDatabaseSettings : IBookstoreDatabaseSettings
+    public class DatabaseSettings : IDatabaseSettings
     {
+        public string NotesCollectionName { get; set; }
         public string BooksCollectionName { get; set; }
 
         public string MyBooksCollectionName { get; set; }

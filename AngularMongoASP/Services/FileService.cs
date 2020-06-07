@@ -1,13 +1,11 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using AngularMongoASP.Models;
+using AngularMongoASP.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.GridFS;
 
 namespace AngularMongoASP.Services
 {
@@ -21,21 +19,13 @@ namespace AngularMongoASP.Services
     public class FileService : IFileService
     {
         private readonly IWebHostEnvironment _hostEnvironment;
-        private readonly GridFSBucket _bucket;
+        private readonly DataContext _dataContext = null;
 
 
-        public FileService(IWebHostEnvironment hostEnvironment, IBookstoreDatabaseSettings settings)
+        public FileService(IWebHostEnvironment hostEnvironment, IDatabaseSettings databaseSettings)
         {
             _hostEnvironment = hostEnvironment;
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-
-            var gridFsBucket = new GridFSBucketOptions()
-            {
-                BucketName = "images",
-                ChunkSizeBytes = 1048576, // 1МБ
-            };
-            _bucket = new GridFSBucket(database, gridFsBucket);
+            _dataContext = new DataContext(databaseSettings);
         }
         public async Task<ObjectId> UploadFile(IFormFile file)
         {
@@ -43,7 +33,7 @@ namespace AngularMongoASP.Services
             {
                 var stream = file.OpenReadStream();
                 var filename = file.FileName;
-                return await _bucket.UploadFromStreamAsync(filename, stream);
+                return await _dataContext.Bucket.UploadFromStreamAsync(filename, stream);
             }
             catch (Exception ex)
             {

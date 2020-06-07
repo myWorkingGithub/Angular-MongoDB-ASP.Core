@@ -21,7 +21,6 @@ namespace AngularMongoASP.Controllers
         {
             _bookService = bookService;
             _fileService = fileService;
-
         }
 
         [HttpGet]
@@ -48,6 +47,12 @@ namespace AngularMongoASP.Controllers
             book.IconPath = test.ToString();
             _bookService.Create(book);
             return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
+        }
+
+        [HttpPost("uploadFile")]
+        public async Task<ObjectId> UploadFile(IFormFile file)
+        {
+            return await _fileService.UploadFile(file);
         }
 
         [HttpPut("{id:length(24)}")]

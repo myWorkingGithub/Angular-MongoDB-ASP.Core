@@ -1,4 +1,4 @@
-using AngularMongoASP.Models;
+using AngularMongoASP.Data;
 using AngularMongoASP.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,16 +23,17 @@ namespace AngularMongoASP
         public void ConfigureServices(IServiceCollection services)
         {
             // requires using Microsoft.Extensions.Options
-            services.Configure<BookstoreDatabaseSettings>(
-                Configuration.GetSection(nameof(BookstoreDatabaseSettings)));
+            services.Configure<DatabaseSettings>(
+                Configuration.GetSection(nameof(DatabaseSettings)));
 
-            services.AddSingleton<IBookstoreDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<BookstoreDatabaseSettings>>().Value);
+            services.AddSingleton<IDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
 
             services.AddSingleton<BookService>();
             services.AddSingleton<MyBookService>();
             services.AddSingleton<IFileService, FileService>();
+            services.AddSingleton<INoteRepository, NoteRepository>();
 
 
             services.AddCors();
