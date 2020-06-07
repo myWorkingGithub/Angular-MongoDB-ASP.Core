@@ -40,11 +40,12 @@ namespace AngularMongoASP.Controllers
         }
 
         [HttpPost]
-        public async Task<Book> Create(Book book)
+        public ActionResult<Book> Create(Book book)
         {
-            var newBook = await _bookService.Create(book);
-           // return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
-           return newBook;
+            var test = _fileService.UploadFile(book.Icon);
+            book.IconPath = test.ToString();
+            _bookService.Create(book);
+            return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
         }
 
         [HttpPut("{id:length(24)}")]
