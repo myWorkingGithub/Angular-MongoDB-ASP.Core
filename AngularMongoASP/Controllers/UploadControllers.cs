@@ -81,10 +81,12 @@ namespace AngularMongoASP.Controllers
                 string folderName = "Uploads";
                 string webRootPath = _hostEnvironment.ContentRootPath;
                 string newPath = Path.Combine(webRootPath, folderName);
+
                 if (!Directory.Exists(newPath))
                 {
                     Directory.CreateDirectory(newPath);
                 }
+
                 if (file.Length > 0)
                 {
                     string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
@@ -108,7 +110,7 @@ namespace AngularMongoASP.Controllers
         [HttpGet("{id}")]
         public IActionResult GetImageUpload(string id)
         {
-            var path = Path.Combine(_hostEnvironment.ContentRootPath, "Upload", $"{id}.png");
+            var path = Path.Combine(_hostEnvironment.ContentRootPath, "Uploads", $"{id}.png");
             var imageFileStream = System.IO.File.OpenRead(path);
             return File(imageFileStream, "image/jpeg");
         }

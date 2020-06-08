@@ -30,8 +30,8 @@ export class ApiService {
   }
 
   /*addOneBook(newBook: IBook, file: FormData): Observable<any> {
-    return this.http.post<any>(this.url + `books`, {newBook, file}, {headers: this.httpHeadersFormData});
-  } */
+    return this.http.post<any>(this.url + `books`, {newBook, file}, {headers: this.httpHeaders});
+  }*/
   addOneBook(newBook: IBook): Observable<any> {
   /*  const body = new FormData();
     body.append('Author', newBook.author);
@@ -39,9 +39,8 @@ export class ApiService {
     body.append('Category', newBook.category);
     body.append('files', newBook.icon.item(0));
     console.log(body);*/
-    return this.http.post<any>(this.url + `books`, newBook, {headers: this.httpHeadersFormData});
+    return this.http.post<any>(this.url + `books`, newBook, {headers: this.httpHeaders});
   }
-
   updateOneBook(bookId, newBook: IBook): Observable<any> {
     return this.http.put<any>(this.url + `books/${bookId}`, newBook, {headers: this.httpHeaders});
   }
@@ -67,7 +66,7 @@ export class ApiService {
     });
   }*/
   uploadFile(file: FormData): Observable<any> {
-    return this.http.post<any>(this.url + `books/uploadFile`, file, {
+    return this.http.post<any>(this.url + `file`, file, {
       reportProgress: true,
     });
   }

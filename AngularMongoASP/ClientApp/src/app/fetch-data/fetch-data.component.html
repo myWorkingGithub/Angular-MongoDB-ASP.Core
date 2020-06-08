@@ -10,7 +10,7 @@
   <button (click)="isEdit = !isEdit; newBook.id = book.id; newBook.bookName = book.bookName; newBook.category = book.category; newBook.author = book.author; newBook.price = book.price;">to update</button>
 </div>
 
-<app-upload (fileImage)="newBook.icon = $event"></app-upload>
+<app-upload (fileImage)="myFile = $event"></app-upload>
 
 <button (click)="uploadFile()">UPLOAD</button>
 

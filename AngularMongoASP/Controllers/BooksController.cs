@@ -40,12 +40,14 @@ namespace AngularMongoASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Book> Create(Book book)
+        public ActionResult Create(Book book)
         {
-            var test = _fileService.UploadFile(book.Icon);
-            book.IconPath = test.ToString();
-            _bookService.Create(book);
-            return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
+            var myFile = Request.Form.Files[0];
+
+          //  book.IconPath = _fileService.Save(book.Icon);
+            var newBook = _bookService.Create(book);
+            return Ok(newBook);
+            // return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
         }
 
         [HttpPut("{id:length(24)}")]

@@ -13,9 +13,12 @@ namespace AngularMongoASP.Models
             ImagePath = imagePath;
         }
 
-        public string GetImagePath()
+        public string GetImagePath
         {
-            return ImagePath;
+            get
+            {
+                return ImagePath;
+            }
         }
     }
 }
