@@ -32,7 +32,7 @@ namespace AngularMongoASP
 
             services.AddSingleton<BookService>();
             services.AddSingleton<MyBookService>();
-            services.AddSingleton<IFileService, FileService>();
+            services.AddSingleton<FileService>();
             services.AddSingleton<INoteRepository, NoteRepository>();
 
 

@@ -15,9 +15,9 @@ namespace AngularMongoASP.Controllers
     public class BooksController : ControllerBase
     {
         private readonly BookService _bookService;
-        private readonly IFileService _fileService;
+        private readonly FileService _fileService;
 
-        public BooksController(BookService bookService, IFileService fileService)
+        public BooksController(BookService bookService, FileService fileService)
         {
             _bookService = bookService;
             _fileService = fileService;
@@ -40,15 +40,25 @@ namespace AngularMongoASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Book book)
+        public ActionResult<Book> Create(Book book)
+        {
+            _bookService.Create(book);
+
+            return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
+        }
+
+
+        /*
+        [HttpPost]
+        public ActionResult Create([FromBody]Book book)
         {
             var myFile = Request.Form.Files[0];
 
-          //  book.IconPath = _fileService.Save(book.Icon);
-            var newBook = _bookService.Create(book);
-            return Ok(newBook);
+            _fileService.UploadFile(book.Icon);
+            _bookService.Create(book);
+            return Ok();
             // return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
-        }
+        }*/
 
         [HttpPut("{id:length(24)}")]
         public IActionResult Update(string id, Book bookIn)

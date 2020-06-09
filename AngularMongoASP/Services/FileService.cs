@@ -13,7 +13,7 @@ using MongoDB.Driver.GridFS;
 
 namespace AngularMongoASP.Services
 {
-    public interface IFileService
+    /*public interface IFileService
     {
         Task<string> Save(IFormFile file);
      //   string Save(IFormFile file);
@@ -26,9 +26,9 @@ namespace AngularMongoASP.Services
         string UploadFileMongo();
         string UploadFileFromAStreamMongo();
         Task DownloadFileMongo();
-    }
+    }*/
 
-    public class FileService : IFileService
+    public class FileService
     {
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly DataContext _dataContext = null;
@@ -38,6 +38,17 @@ namespace AngularMongoASP.Services
         {
             _hostEnvironment = hostEnvironment;
             _dataContext = new DataContext(databaseSettings);
+        }
+
+        public async Task DownloadFileAsBytesByName()
+        {
+
+            byte[] content = await _dataContext.Bucket.DownloadAsBytesByNameAsync("123.png");
+
+            File.WriteAllBytes("/home/anton/WorkSharp/My Mongo Project/Angular-MongoDB-ASP.Core/AngularMongoASP/uploads/945e00f8-3c47-46f7-a04d-283489ae70a4.png", content);
+
+            System.Diagnostics.Process.Start("/home/anton/WorkSharp/My Mongo Project/Angular-MongoDB-ASP.Core/AngularMongoASP/uploads/945e00f8-3c47-46f7-a04d-283489ae70a4.png");
+
         }
 
         public async Task<string> Save(IFormFile file)
@@ -115,13 +126,9 @@ namespace AngularMongoASP.Services
         {
             try
             {
-                Stream stream = File.Open("/home/anton/WorkSharp/My Mongo Project/Angular-MongoDB-ASP.Core/AngularMongoASP/Uploads/123.png", FileMode.Open);
-
-              //  var stream = file.OpenReadStream();
-              //  var filename = file.FileName;
-                var extension = Path.GetExtension(file.FileName)?.ToLower();
-                var fileName = Guid.NewGuid() + extension;
-              return await _dataContext.Bucket.UploadFromStreamAsync(fileName, stream);
+                var stream = file.OpenReadStream();
+                var filename = file.FileName;
+                return await _dataContext.Bucket.UploadFromStreamAsync(filename, stream);
             }
             catch (Exception ex)
             {
@@ -257,5 +264,8 @@ namespace AngularMongoASP.Services
 
             return dbPath;
         }
+
     }
+
+
 }

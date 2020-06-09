@@ -39,7 +39,7 @@ export class ApiService {
     body.append('Category', newBook.category);
     body.append('files', newBook.icon.item(0));
     console.log(body);*/
-    return this.http.post<any>(this.url + `books`, newBook, {headers: this.httpHeaders});
+    return this.http.post<any>(this.url + `books`, newBook, {headers: this.httpHeadersFormData});
   }
   updateOneBook(bookId, newBook: IBook): Observable<any> {
     return this.http.put<any>(this.url + `books/${bookId}`, newBook, {headers: this.httpHeaders});

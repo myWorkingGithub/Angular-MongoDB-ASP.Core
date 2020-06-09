@@ -1,19 +1,14 @@
-using System;
 using MongoDB.Driver;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using AngularMongoASP.Data;
 using AngularMongoASP.Models;
-using Microsoft.AspNetCore.Http;
-using MongoDB.Bson;
-
 namespace AngularMongoASP.Services
 {
     public class BookService
     {
         private readonly DataContext _dataContext = null;
 
-        public BookService(IDatabaseSettings databaseSettings, IFileService fileService)
+        public BookService(IDatabaseSettings databaseSettings, FileService fileService)
         {
             _dataContext = new DataContext(databaseSettings);
         }

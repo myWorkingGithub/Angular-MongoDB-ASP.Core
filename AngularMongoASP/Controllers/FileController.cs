@@ -12,24 +12,38 @@ namespace AngularMongoASP.Controllers
     [Route("[controller]")]
     public class FileController : ControllerBase
     {
-        private readonly IFileService _fileService;
+        private readonly FileService _fileService;
 
-        public FileController(IFileService fileService)
+        public FileController(FileService fileService)
         {
             _fileService = fileService;
         }
 
         [HttpPost]
-       // [Route("upload")]
-        public ActionResult Upload(IFormFile file)
+        public async Task<string> Upload(IFormFile file)
         {
             var myFile = Request.Form.Files[0];
-            var path = _fileService.Save(myFile);
-            return Ok(new
-            {
-                IPathImage = path
-            });
+            ObjectId id = await _fileService.UploadFile(myFile);
+            return id.ToString();
         }
+        [HttpGet("test")]
+        public async Task<string> DownloadFile()
+        {
+            await _fileService.DownloadFileAsBytesByName();
+            return "";
+        }
+
+
+
+
+       /*public IActionResult Upload(IFormFile file)
+       {
+          // var myFile = Request.Form.Files[0];
+
+
+          _fileService.Save(file);
+          return Ok();
+       }*/
 
        /*[HttpPost]
        [Route("upload")]
