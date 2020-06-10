@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AngularMongoASP.Models;
 using AngularMongoASP.Services;
 using Microsoft.AspNetCore.Http;
-using MongoDB.Bson;
 
 namespace AngularMongoASP.Controllers
 {
@@ -40,11 +39,10 @@ namespace AngularMongoASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Book> Create(Book book)
+        public async Task<Book> Create(Book book)
         {
-            _bookService.Create(book);
-
-            return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
+            return await _bookService.Create(book);
+            // CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
         }
 
 

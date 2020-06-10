@@ -22,8 +22,7 @@ namespace AngularMongoASP.Controllers
         [HttpPost]
         public async Task<string> Upload(IFormFile file)
         {
-            var myFile = Request.Form.Files[0];
-            ObjectId id = await _fileService.UploadFile(myFile);
+            ObjectId id = await _fileService.UploadFile(file);
             return id.ToString();
         }
         [HttpGet("test")]
@@ -32,9 +31,6 @@ namespace AngularMongoASP.Controllers
             await _fileService.DownloadFileAsBytesByName();
             return "";
         }
-
-
-
 
        /*public IActionResult Upload(IFormFile file)
        {
@@ -59,12 +55,14 @@ namespace AngularMongoASP.Controllers
            return _fileService.UploadFile(file);
        }*/
 
+       /*
        [HttpPost]
        [Route("upload")]
        public string UploadFile()
        {
-           return _fileService.UploadFileMongo();
+           return fileService.UploadFileMongo();
        }
+       */
 
       // POST api/notes/uploadFile
        /*[HttpPost("uploadFile")]

@@ -122,7 +122,7 @@ namespace AngularMongoASP.Services
             File.WriteAllBytes("123.png", content);
         }
 
-        public async Task<ObjectId> UploadFile(IFormFile file)
+        public async Task<ObjectId> UploadFile([FromForm(Name = "file")]IFormFile file)
         {
             try
             {

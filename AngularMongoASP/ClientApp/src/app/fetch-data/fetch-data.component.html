@@ -1,3 +1,7 @@
+<app-upload (fileImage)="myFile = $event"></app-upload>
+
+<button (click)="uploadFile()">UPLOAD</button>
+
 <h1>CRUD for Books</h1>
 
 <div class="form-group" *ngFor="let book of books$ | async">
@@ -11,9 +15,6 @@
 </div>
 
 <app-upload (fileImage)="newBook.icon = $event"></app-upload>
-
-<button (click)="uploadFile()">UPLOAD</button>
-
 
 <div class="form-group">
   <label>bookName</label>

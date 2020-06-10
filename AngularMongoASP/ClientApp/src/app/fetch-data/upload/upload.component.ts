@@ -33,9 +33,9 @@ export class UploadComponent implements OnInit {
       return;
     const formData = new FormData();
     for (const file of files) {
-      formData.append(file.name, file);
+    //  formData.append(file.name, file);
+      formData.append('file', file);
     }
-    //  formData.append('uploadedFile', file);
     this.fileImage.emit(formData);
   }
 
