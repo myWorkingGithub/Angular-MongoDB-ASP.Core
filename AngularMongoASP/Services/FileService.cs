@@ -118,6 +118,12 @@ namespace AngularMongoASP.Services
             }
         }
 
+        public void DeleteFile(string id)
+        {
+            var objectId = MongoDB.Bson.ObjectId.Parse(id);
+            _dataContext.Bucket.DeleteAsync(objectId);
+        }
+
         /*public async Task<string> UploadFile(IFormFile file)
         {
             try

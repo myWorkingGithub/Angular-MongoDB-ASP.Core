@@ -26,8 +26,8 @@ namespace AngularMongoASP.Services
 
         public async Task<Book> Create(Book book, IFormFile file)
         {
-            var test = await _fileService.UploadFile(file);
-            book.IconId = test.ToString();
+            var objectId = await _fileService.UploadFile(file);
+            book.IconId = objectId.ToString();
             _dataContext.Books.InsertOne(book);
             return book;
         }

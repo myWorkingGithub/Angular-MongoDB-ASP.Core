@@ -28,7 +28,7 @@ namespace AngularMongoASP.Controllers
         [HttpGet("test")]
         public async Task<string> DownloadFile()
         {
-            await _fileService.DownloadFileAsBytesByName();
+            await _fileService.DownloadFileMongo();
             return "";
         }
 
