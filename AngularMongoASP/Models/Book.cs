@@ -18,6 +18,6 @@ namespace AngularMongoASP.Models
 
         public string Author { get; set; }
         public string IconId { get; set; }
-        public string IconPath { get; set; }
+        public byte [] IconPath { get; set; }
     }
 }

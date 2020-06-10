@@ -9,6 +9,7 @@ export interface IBook {
   id: string;
   price?: number;
   iconId: string;
+  iconPath?: string;
  // icon: FormData;
   icon: File;
 }

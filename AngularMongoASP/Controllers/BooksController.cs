@@ -15,12 +15,10 @@ namespace AngularMongoASP.Controllers
     public class BooksController : ControllerBase
     {
         private readonly BookService _bookService;
-        private readonly FileService _fileService;
 
-        public BooksController(BookService bookService, FileService fileService)
+        public BooksController(BookService bookService)
         {
             _bookService = bookService;
-            _fileService = fileService;
         }
 
         [HttpGet]
@@ -63,13 +61,12 @@ namespace AngularMongoASP.Controllers
         public IActionResult Delete(string id)
         {
             var book = _bookService.Get(id);
-            _fileService.DeleteFile(book.IconId);
             if (book == null)
             {
                 return NotFound();
             }
 
-            _bookService.Remove(book.Id);
+            _bookService.Remove(book, book.IconId);
 
             return NoContent();
         }

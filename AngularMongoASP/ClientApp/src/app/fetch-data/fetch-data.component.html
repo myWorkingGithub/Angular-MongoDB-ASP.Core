@@ -7,7 +7,7 @@
 <h1>CRUD for Books</h1>
 
 <div class="form-group" *ngFor="let book of books$ | async">
-  <!--<img [src]="book.iconId" alt="">-->
+  <img style="height: 50px;" [src]=" 'data:image/png;base64,' + book.iconPath" alt="">
   {{ book.id }}
   {{ book.bookName }}
   {{ book.category }}

@@ -28,6 +28,7 @@ namespace AngularMongoASP.Services
         {
             var objectId = await _fileService.UploadFile(file);
             book.IconId = objectId.ToString();
+            book.IconPath = await _fileService.GetBytesByName(file.FileName);
             _dataContext.Books.InsertOne(book);
             return book;
         }
@@ -35,8 +36,11 @@ namespace AngularMongoASP.Services
         public void Update(string id, Book bookIn) =>
             _dataContext.Books.ReplaceOne(book => book.Id == id, bookIn);
 
-        public void Remove(Book bookIn) =>
+        public void Remove(Book bookIn, string iconId)
+        {
             _dataContext.Books.DeleteOne(book => book.Id == bookIn.Id);
+            _fileService.DeleteFile(iconId);
+        }
 
         public void Remove(string id) =>
             _dataContext.Books.DeleteOne(book => book.Id == id);

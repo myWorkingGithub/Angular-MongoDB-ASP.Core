@@ -21,6 +21,36 @@ namespace AngularMongoASP.Services
             _dataContext = new DataContext(databaseSettings);
         }
 
+        // CRUD FOR GridFSBucket Files
+
+        public async Task<ObjectId> UploadFile(IFormFile file)
+        {
+            try
+            {
+                var stream = file.OpenReadStream();
+                var filename = file.FileName;
+                return await _dataContext.Bucket.UploadFromStreamAsync(filename, stream);
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                return new ObjectId(ex.ToString());
+            }
+        }
+
+        public Task<byte[]> GetBytesByName(string id)
+        {
+            return _dataContext.Bucket.DownloadAsBytesByNameAsync(id);
+        }
+
+        public void DeleteFile(string id)
+        {
+            var objectId = MongoDB.Bson.ObjectId.Parse(id);
+            _dataContext.Bucket.DeleteAsync(objectId);
+        }
+
+        // Other test methods
+
         public async Task DownloadFileAsBytesByName()
         {
 
@@ -103,26 +133,16 @@ namespace AngularMongoASP.Services
             File.WriteAllBytes("123.png", content);
         }
 
-        public async Task<ObjectId> UploadFile(IFormFile file)
+        public static byte[] CreateSpecialByteArray(int length)
         {
-            try
+            var arr = new byte[length];
+            for (int i = 0; i < arr.Length; i++)
             {
-                var stream = file.OpenReadStream();
-                var filename = file.FileName;
-                return await _dataContext.Bucket.UploadFromStreamAsync(filename, stream);
+                arr[i] = 0x20;
             }
-            catch (Exception ex)
-            {
-                // log or manage the exception
-                return new ObjectId(ex.ToString());
-            }
+            return arr;
         }
 
-        public void DeleteFile(string id)
-        {
-            var objectId = MongoDB.Bson.ObjectId.Parse(id);
-            _dataContext.Bucket.DeleteAsync(objectId);
-        }
 
         /*public async Task<string> UploadFile(IFormFile file)
         {
