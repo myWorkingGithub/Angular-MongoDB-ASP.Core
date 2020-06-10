@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -18,7 +17,7 @@ namespace AngularMongoASP.Models
         public string Category { get; set; }
 
         public string Author { get; set; }
-        public IFormFile Icon { get; set; }
+        public string IconId { get; set; }
         public string IconPath { get; set; }
     }
 }

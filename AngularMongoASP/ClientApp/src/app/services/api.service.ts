@@ -35,13 +35,31 @@ export class ApiService {
 
 
   addOneBook(newBook: IBook): Observable<any> {
-  /*  const body = new FormData();
+   /* const body = new FormData();
     body.append('Author', newBook.author);
     body.append('BookName', newBook.bookName);
     body.append('Category', newBook.category);
-    body.append('files', newBook.icon.item(0));
+    body.append('file', newBook.icon);
     console.log(body);*/
-    return this.http.post<any>(this.url + `books`, newBook, {headers: this.httpHeadersFormData});
+
+    const formData: FormData = new FormData();
+    formData.append('icon', newBook.icon);
+    delete newBook.id;
+    delete newBook.icon;
+    formData.append('body', JSON.stringify(newBook));
+    console.log(formData);
+    /*const body = this._toFormData(newBook);
+    console.log(body);*/
+    return this.http.post<any>(this.url + `books`, formData, {headers: this.httpHeadersFormData});
+  }
+
+  private _toFormData(data): FormData {
+    const fd = new FormData();
+    const keys = Object.keys(data);
+    keys.forEach((key) => {
+      fd.append(key, data[key]);
+    });
+    return fd;
   }
 
 

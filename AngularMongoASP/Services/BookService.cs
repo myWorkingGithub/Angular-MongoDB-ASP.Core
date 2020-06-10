@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AngularMongoASP.Data;
 using AngularMongoASP.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AngularMongoASP.Services
 {
@@ -25,9 +24,10 @@ namespace AngularMongoASP.Services
         public Book Get(string id) =>
             _dataContext.Books.Find<Book>(book => book.Id == id).FirstOrDefault();
 
-        public async Task<Book> Create(Book book)
+        public async Task<Book> Create(Book book, IFormFile file)
         {
-            await _fileService.UploadFile(book.Icon);
+            var test = await _fileService.UploadFile(file);
+            book.IconId = test.ToString();
             _dataContext.Books.InsertOne(book);
             return book;
         }

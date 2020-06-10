@@ -1,38 +1,19 @@
 using System;
 using System.IO;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AngularMongoASP.Data;
-using AngularMongoASP.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 
 namespace AngularMongoASP.Services
 {
-    /*public interface IFileService
-    {
-        Task<string> Save(IFormFile file);
-     //   string Save(IFormFile file);
-        Task<string> UploadProfilePicture(IFormFile file);
-       // string UploadFile(IFormFile file);
-
-        Task<ObjectId> UploadFile(IFormFile file);
-
-        Task<String> GetFileInfo(string id);
-        string UploadFileMongo();
-        string UploadFileFromAStreamMongo();
-        Task DownloadFileMongo();
-    }*/
-
     public class FileService
     {
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly DataContext _dataContext = null;
-        private readonly UploadFile _uploadFile = new UploadFile();
 
         public FileService(IWebHostEnvironment hostEnvironment, IDatabaseSettings databaseSettings)
         {
@@ -122,7 +103,7 @@ namespace AngularMongoASP.Services
             File.WriteAllBytes("123.png", content);
         }
 
-        public async Task<ObjectId> UploadFile([FromForm(Name = "file")]IFormFile file)
+        public async Task<ObjectId> UploadFile(IFormFile file)
         {
             try
             {

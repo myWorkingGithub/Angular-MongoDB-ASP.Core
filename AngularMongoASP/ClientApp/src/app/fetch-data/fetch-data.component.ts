@@ -8,8 +8,9 @@ export interface IBook {
   category: string;
   id: string;
   price?: number;
-  iconPath: string;
-  icon: FormData;
+  iconId: string;
+ // icon: FormData;
+  icon: File;
 }
 
 @Component({
@@ -23,8 +24,8 @@ export class FetchDataComponent implements OnInit {
   public myFile: FormData;
   public books$: Observable<Array<IBook>>;
   public myBooks$: Observable<Array<IBook>>;
-  public newBook: IBook = {id: '', bookName: 'bookName', author: 'author', category: 'category', price: 123, icon: null, iconPath: null};
-  public newMyBook: IBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconPath: null};
+  public newBook: IBook = {id: '', bookName: 'bookName', author: 'author', category: 'category', price: 123, icon: null, iconId: null};
+  public newMyBook: IBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null};
   constructor(
     private apiService: ApiService
   ) {
@@ -44,13 +45,14 @@ export class FetchDataComponent implements OnInit {
         error => console.log(error)
       );
   }
+
   public addOneBook(): void {
     console.log(this.newBook);
     this.apiService.addOneBook(this.newBook)
       .subscribe(
         res => {
           console.log(res);
-          this.newBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconPath: null};
+          this.newBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null};
           this.getAllBooks();
         },
         error => console.log(error)
@@ -61,7 +63,7 @@ export class FetchDataComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.newBook = {id: null, bookName: null, author: null, category: null, price: null, iconPath: null, icon: null};
+          this.newBook = {id: null, bookName: null, author: null, category: null, price: null, iconId: null, icon: null};
           this.getAllBooks();
         },
         error => console.log(error)
@@ -83,7 +85,7 @@ export class FetchDataComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.newMyBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconPath: null};
+          this.newMyBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null};
           this.getAllMyBooks();
         },
         error => console.log(error)
@@ -94,7 +96,7 @@ export class FetchDataComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.newMyBook = {id: null, bookName: null, author: null, category: null, price: null, iconPath: null, icon: null};
+          this.newMyBook = {id: null, bookName: null, author: null, category: null, price: null, iconId: null, icon: null};
           this.getAllMyBooks();
         },
         error => console.log(error)

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AngularMongoASP.Models;
 using AngularMongoASP.Services;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace AngularMongoASP.Controllers
 {
@@ -14,12 +15,10 @@ namespace AngularMongoASP.Controllers
     public class BooksController : ControllerBase
     {
         private readonly BookService _bookService;
-        private readonly FileService _fileService;
 
-        public BooksController(BookService bookService, FileService fileService)
+        public BooksController(BookService bookService)
         {
             _bookService = bookService;
-            _fileService = fileService;
         }
 
         [HttpGet]
@@ -37,26 +36,11 @@ namespace AngularMongoASP.Controllers
 
             return book;
         }
-
-        [HttpPost]
-        public async Task<Book> Create(Book book)
+        public async Task<Book> Create([FromForm(Name = "icon")]IFormFile file, [FromForm(Name = "body")] string body)
         {
-            return await _bookService.Create(book);
-            // CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
+            Book book = JsonConvert.DeserializeObject<Book>(body);
+            return await _bookService.Create(book, file);
         }
-
-
-        /*
-        [HttpPost]
-        public ActionResult Create([FromBody]Book book)
-        {
-            var myFile = Request.Form.Files[0];
-
-            _fileService.UploadFile(book.Icon);
-            _bookService.Create(book);
-            return Ok();
-            // return CreatedAtRoute("GetBook", new { id = book.Id.ToString() }, book);
-        }*/
 
         [HttpPut("{id:length(24)}")]
         public IActionResult Update(string id, Book bookIn)

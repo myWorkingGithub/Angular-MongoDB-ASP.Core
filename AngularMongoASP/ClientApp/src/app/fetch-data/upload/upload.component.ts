@@ -7,7 +7,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
-  @Output() fileImage: EventEmitter<FormData> = new EventEmitter();
+  @Output() fileImage: EventEmitter<File> = new EventEmitter();
 //  @Output() fileImage: EventEmitter<any> = new EventEmitter();
   public progress: number;
   public message: string;
@@ -28,7 +28,7 @@ export class UploadComponent implements OnInit {
     }
   }
 
-  public uploadFormData(files) {
+ /* public uploadFormData(files) {
     if (files.length === 0)
       return;
     const formData = new FormData();
@@ -38,5 +38,5 @@ export class UploadComponent implements OnInit {
     }
     this.fileImage.emit(formData);
   }
-
+*/
 }

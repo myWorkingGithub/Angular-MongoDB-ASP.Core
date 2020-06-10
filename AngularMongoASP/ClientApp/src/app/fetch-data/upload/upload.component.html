@@ -1,8 +1,6 @@
-<!--
 <input type="file" #inputFile (change)="upload($event)" placeholder="Upload file">
--->
 
-<input #file type="file" multiple (change)="uploadFormData(file.files)" />
+<!--<input #file type="file" multiple (change)="uploadFormData(file.files)" />-->
 <br />
 <span style="font-weight:bold;color:green;" *ngIf="progress > 0 && progress < 100">
   {{progress}}%
