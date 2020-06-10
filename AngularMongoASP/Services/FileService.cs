@@ -38,9 +38,9 @@ namespace AngularMongoASP.Services
             }
         }
 
-        public Task<byte[]> GetBytesByName(string id)
+        public Task<byte[]> GetBytesByName(string fileName)
         {
-            return _dataContext.Bucket.DownloadAsBytesByNameAsync(id);
+            return _dataContext.Bucket.DownloadAsBytesByNameAsync(fileName);
         }
 
         public void DeleteFile(string id)
