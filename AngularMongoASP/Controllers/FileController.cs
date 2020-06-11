@@ -20,7 +20,7 @@ namespace AngularMongoASP.Controllers
         }
 
         [HttpPost]
-        public async Task<string> Upload(IFormFile file)
+        public async Task<string> Upload([FromForm(Name = "icon")]IFormFile file)
         {
             ObjectId id = await _fileService.UploadFile(file);
             return id.ToString();
