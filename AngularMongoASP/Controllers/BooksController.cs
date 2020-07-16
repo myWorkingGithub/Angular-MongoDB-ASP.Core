@@ -27,7 +27,7 @@ namespace AngularMongoASP.Controllers
         [HttpGet("{id:length(24)}", Name = "GetBook")]
         public ActionResult<Book> Get(string id)
         {
-            var book = _bookService.Get(id);
+            var book = _bookService.GetOneBook(id);
 
             if (book == null)
             {
@@ -45,7 +45,7 @@ namespace AngularMongoASP.Controllers
         [HttpPut("{id:length(24)}")]
         public IActionResult Update(string id, Book bookIn)
         {
-            var book = _bookService.Get(id);
+            var book = _bookService.GetOneBook(id);
 
             if (book == null)
             {
@@ -60,7 +60,7 @@ namespace AngularMongoASP.Controllers
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id)
         {
-            var book = _bookService.Get(id);
+            var book = _bookService.GetOneBook(id);
             if (book == null)
             {
                 return NotFound();

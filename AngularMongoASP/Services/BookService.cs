@@ -21,7 +21,7 @@ namespace AngularMongoASP.Services
         public List<Book> Get() =>
             _dataContext.Books.Find(book => true).ToList();
 
-        public Book Get(string id) =>
+        public Book GetOneBook(string id) =>
             _dataContext.Books.Find<Book>(book => book.Id == id).FirstOrDefault();
 
         public async Task<Book> Create(Book book, IFormFile file)
