@@ -37,7 +37,7 @@ namespace AngularMongoASP
 
 
             services.AddCors();
-
+            services.AddSignalR();
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
@@ -71,6 +71,7 @@ namespace AngularMongoASP
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<SignalR.HubConfig.ChartHub>("/chart");
             });
 
             // global cors policy
