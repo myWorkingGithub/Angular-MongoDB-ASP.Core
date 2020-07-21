@@ -15,7 +15,7 @@ namespace AngularMongoASP.SignalR.TimerFeatures
         {
             _action = action;
             _autoResetEvent = new AutoResetEvent(false);
-            _timer = new Timer(Execute, _autoResetEvent, 1000, 2000);
+            _timer = new Timer(Execute, _autoResetEvent, 2000, 3000);
             TimerStarted = System.DateTime.Now;
         }
     
