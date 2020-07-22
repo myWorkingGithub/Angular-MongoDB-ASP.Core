@@ -30,20 +30,22 @@ export class SignalrService {
       console.log(data);
     });
   }
-  public broadcastChartData = () => {
+  public broadcastChartData(): void {
     const data = this.data.map(m => {
       const temp = {
         data: m.data,
         label: m.label
-      }
+      };
       return temp;
     });
     this.hubConnection.invoke('broadcastchartdata', data)
+  //  .then(resp => console.log(resp))
     .catch(err => console.error(err));
   }
   public addBroadcastChartDataListener = () => {
     this.hubConnection.on('broadcastchartdata', (data) => {
       this.bradcastedData = data;
-    })
+      console.log(data);
+    });
   }
 }

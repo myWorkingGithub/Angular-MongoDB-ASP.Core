@@ -28,5 +28,5 @@ namespace AngularMongoASP.SignalR.TimerFeatures
                 _timer.Dispose();
             }
         }
-        }
+    }
 }
