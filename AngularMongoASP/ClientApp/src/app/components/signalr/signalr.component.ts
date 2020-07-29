@@ -26,8 +26,8 @@ export class SignalrComponent implements OnInit {
   public colors: any[] = [{ backgroundColor: '#5491DA' }, { backgroundColor: '#E74C3C' }, { backgroundColor: '#82E0AA' }, { backgroundColor: '#E5E7E9' }];
   constructor(
     public signalRService: SignalrService,
-     private http: HttpClient
-     ) { }
+    private http: HttpClient
+  ) { }
   ngOnInit() {
     this.signalRService.startConnection();
     this.signalRService.addTransferChartDataListener();
@@ -41,7 +41,7 @@ export class SignalrComponent implements OnInit {
       });
   }
   public chartClicked = (event) => {
-   // console.log(event);
+    // console.log(event);
     this.signalRService.broadcastChartData();
   }
 

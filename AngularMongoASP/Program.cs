@@ -1,22 +1,18 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-namespace AngularMongoASP
-{
-    public class Program
-    {
+namespace AngularMongoASP {
+    public class Program {
 
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
+        public static void Main (string[] args) {
+            CreateHostBuilder (args).Build ().Run ();
 
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>()
-                        .UseUrls("http://localhost:3000");
-                });
+        public static IHostBuilder CreateHostBuilder (string[] args) =>
+            Host.CreateDefaultBuilder (args)
+            .ConfigureWebHostDefaults (webBuilder => {
+                webBuilder.UseStartup<Startup> ()
+                    .UseUrls ("http://localhost:3000");
+            });
     }
 }

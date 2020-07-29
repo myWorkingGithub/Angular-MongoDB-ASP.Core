@@ -10,7 +10,7 @@ export interface IBook {
   price?: number;
   iconId: string;
   iconPath?: string;
- // icon: FormData;
+  // icon: FormData;
   icon: File;
 }
 
@@ -25,8 +25,8 @@ export class FetchDataComponent implements OnInit {
   public myFile: FormData;
   public books$: Observable<Array<IBook>>;
   public myBooks$: Observable<Array<IBook>>;
-  public newBook: IBook = {id: '', bookName: 'bookName', author: 'author', category: 'category', price: 123, icon: null, iconId: null};
-  public newMyBook: IBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null};
+  public newBook: IBook = { id: '', bookName: 'bookName', author: 'author', category: 'category', price: 123, icon: null, iconId: null };
+  public newMyBook: IBook = { id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null };
   constructor(
     private apiService: ApiService
   ) {
@@ -52,7 +52,7 @@ export class FetchDataComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.newBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null};
+          this.newBook = { id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null };
           this.getAllBooks();
         },
         error => console.log(error)
@@ -63,7 +63,7 @@ export class FetchDataComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.newBook = {id: null, bookName: null, author: null, category: null, price: null, iconId: null, icon: null};
+          this.newBook = { id: null, bookName: null, author: null, category: null, price: null, iconId: null, icon: null };
           this.getAllBooks();
         },
         error => console.log(error)
@@ -85,7 +85,7 @@ export class FetchDataComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.newMyBook = {id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null};
+          this.newMyBook = { id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null };
           this.getAllMyBooks();
         },
         error => console.log(error)
@@ -96,7 +96,7 @@ export class FetchDataComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.newMyBook = {id: null, bookName: null, author: null, category: null, price: null, iconId: null, icon: null};
+          this.newMyBook = { id: null, bookName: null, author: null, category: null, price: null, iconId: null, icon: null };
           this.getAllMyBooks();
         },
         error => console.log(error)

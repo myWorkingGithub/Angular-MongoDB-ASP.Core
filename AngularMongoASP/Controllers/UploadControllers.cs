@@ -2,20 +2,17 @@ using System;
 using System.IO;
 using System.Net.Http.Headers;
 using AngularMongoASP.Models;
-using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
-namespace AngularMongoASP.Controllers
-{
-    [Produces("application/json")]
-    [Route("[controller]")]
-    public class UploadController : Controller
-    {
+namespace AngularMongoASP.Controllers {
+    [Produces ("application/json")]
+    [Route ("[controller]")]
+    public class UploadController : Controller {
         private readonly IHostEnvironment _hostEnvironment;
 
-        private readonly UploadFile _uploadFile = new UploadFile();
-        public UploadController(IHostEnvironment hostingEnvironment)
-        {
+        private readonly UploadFile _uploadFile = new UploadFile ();
+        public UploadController (IHostEnvironment hostingEnvironment) {
             _hostEnvironment = hostingEnvironment;
         }
 
@@ -73,46 +70,38 @@ namespace AngularMongoASP.Controllers
         }*/
 
         [HttpPost, DisableRequestSizeLimit]
-        public ActionResult UploadFileRequest()
-        {
-            try
-            {
+        public ActionResult UploadFileRequest () {
+            try {
                 var file = Request.Form.Files[0];
                 string folderName = "Uploads";
                 string webRootPath = _hostEnvironment.ContentRootPath;
-                string newPath = Path.Combine(webRootPath, folderName);
+                string newPath = Path.Combine (webRootPath, folderName);
 
-                if (!Directory.Exists(newPath))
-                {
-                    Directory.CreateDirectory(newPath);
+                if (!Directory.Exists (newPath)) {
+                    Directory.CreateDirectory (newPath);
                 }
 
-                if (file.Length > 0)
-                {
-                    string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    string fullPath = Path.Combine(newPath, fileName);
-                    _uploadFile.WriteImagePath(fullPath);
-                    Console.WriteLine(_uploadFile.ImagePath);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
+                if (file.Length > 0) {
+                    string fileName = ContentDispositionHeaderValue.Parse (file.ContentDisposition).FileName.Trim ('"');
+                    string fullPath = Path.Combine (newPath, fileName);
+                    _uploadFile.WriteImagePath (fullPath);
+                    Console.WriteLine (_uploadFile.ImagePath);
+                    using (var stream = new FileStream (fullPath, FileMode.Create)) {
+                        file.CopyTo (stream);
                     }
                 }
-                return Json("Upload Successful. " + newPath +"/" + file);
-            }
-            catch (System.Exception ex)
-            {
-                return Json("Upload Failed: " + ex.Message);
+                return Json ("Upload Successful. " + newPath + "/" + file);
+            } catch (System.Exception ex) {
+                return Json ("Upload Failed: " + ex.Message);
             }
         }
 
         // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public IActionResult GetImageUpload(string id)
-        {
-            var path = Path.Combine(_hostEnvironment.ContentRootPath, "Uploads", $"{id}.png");
-            var imageFileStream = System.IO.File.OpenRead(path);
-            return File(imageFileStream, "image/jpeg");
+        [HttpGet ("{id}")]
+        public IActionResult GetImageUpload (string id) {
+            var path = Path.Combine (_hostEnvironment.ContentRootPath, "Uploads", $"{id}.png");
+            var imageFileStream = System.IO.File.OpenRead (path);
+            return File (imageFileStream, "image/jpeg");
         }
 
     }

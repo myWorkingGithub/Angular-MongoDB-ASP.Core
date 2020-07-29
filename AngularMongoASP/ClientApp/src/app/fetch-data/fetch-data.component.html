@@ -14,7 +14,9 @@
   {{ book.price }}
   {{ book.author }}
   <button (click)="deleteBook(book.id)">delele</button>
-  <button (click)="isEdit = !isEdit; newBook.id = book.id; newBook.bookName = book.bookName; newBook.category = book.category; newBook.author = book.author; newBook.price = book.price;">to update</button>
+  <button
+    (click)="isEdit = !isEdit; newBook.id = book.id; newBook.bookName = book.bookName; newBook.category = book.category; newBook.author = book.author; newBook.price = book.price;">to
+    update</button>
 </div>
 <h3>for newBook Icon</h3>
 <app-upload (fileImage)="newBook.icon = $event"></app-upload>

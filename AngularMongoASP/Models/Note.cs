@@ -1,10 +1,8 @@
 ﻿﻿using System;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace AngularMongoASP.Models
-{
-    public class Note
-    {
+namespace AngularMongoASP.Models {
+    public class Note {
         [BsonId]
         public string Id { get; set; }
         public string Body { get; set; } = string.Empty;

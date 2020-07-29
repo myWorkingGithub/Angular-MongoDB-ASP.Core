@@ -1,15 +1,12 @@
 using System.Collections.Generic;
 
-namespace AngularMongoASP.SignalR.Models
-{
-    public class ChartModel 
-    {
-         public List<int> Data { get; set; }
+namespace AngularMongoASP.SignalR.Models {
+    public class ChartModel {
+        public List<int> Data { get; set; }
         public string Label { get; set; }
- 
-        public ChartModel()
-        {
-        Data = new List<int>();
+
+        public ChartModel () {
+            Data = new List<int> ();
         }
     }
 }

@@ -1,22 +1,17 @@
 using Microsoft.AspNetCore.Http;
 
-namespace AngularMongoASP.Models
-{
-    public class UploadFile
-    {
+namespace AngularMongoASP.Models {
+    public class UploadFile {
         public string Name { get; set; }
         public IFormFile Image { get; set; }
         public string ImagePath;
 
-        public void WriteImagePath(string imagePath)
-        {
+        public void WriteImagePath (string imagePath) {
             ImagePath = imagePath;
         }
 
-        public string GetImagePath
-        {
-            get
-            {
+        public string GetImagePath {
+            get {
                 return ImagePath;
             }
         }

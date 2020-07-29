@@ -1,7 +1,5 @@
-namespace AngularMongoASP.Data
-{
-    public interface IDatabaseSettings
-    {
+namespace AngularMongoASP.Data {
+    public interface IDatabaseSettings {
         public string BooksCollectionName { get; set; }
         public string NotesCollectionName { get; set; }
         public string MyBooksCollectionName { get; set; }
@@ -9,8 +7,7 @@ namespace AngularMongoASP.Data
         public string DatabaseName { get; set; }
     }
 
-    public class DatabaseSettings : IDatabaseSettings
-    {
+    public class DatabaseSettings : IDatabaseSettings {
         public string NotesCollectionName { get; set; }
         public string BooksCollectionName { get; set; }
 

@@ -17,8 +17,8 @@ export class SignalrService {
   constructor() { }
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-                            .withUrl('http://localhost:3000/chart')
-                            .build();
+      .withUrl('http://localhost:3000/chart')
+      .build();
     this.hubConnection
       .start()
       .then(() => console.log('Connection started'))
@@ -39,8 +39,8 @@ export class SignalrService {
       return temp;
     });
     this.hubConnection.invoke('broadcastchartdata', data)
-  //  .then(resp => console.log(resp))
-    .catch(err => console.error(err));
+      //  .then(resp => console.log(resp))
+      .catch(err => console.error(err));
   }
   public addBroadcastChartDataListener = () => {
     this.hubConnection.on('broadcastchartdata', (data) => {
