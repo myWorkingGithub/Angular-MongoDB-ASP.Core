@@ -2,12 +2,16 @@
 <app-upload (fileImage)="myFile = $event"></app-upload>
 
 <button (click)="uploadFile()">UPLOAD</button>
-<br>
-<br>
+<br />
+<br />
 <h1>CRUD for Books</h1>
 
 <div class="form-group" *ngFor="let book of books$ | async">
-  <img style="height: 50px;" [src]=" 'data:image/png;base64,' + book.iconPath" alt="">
+  <img
+    style="height: 50px"
+    [src]="'data:image/png;base64,' + book.iconPath"
+    alt=""
+  />
   {{ book.id }}
   {{ book.bookName }}
   {{ book.category }}
@@ -15,21 +19,30 @@
   {{ book.author }}
   <button (click)="deleteBook(book.id)">delele</button>
   <button
-    (click)="isEdit = !isEdit; newBook.id = book.id; newBook.bookName = book.bookName; newBook.category = book.category; newBook.author = book.author; newBook.price = book.price;">to
-    update</button>
+    (click)="
+      isEdit = !isEdit;
+      newBook.id = book.id;
+      newBook.bookName = book.bookName;
+      newBook.category = book.category;
+      newBook.author = book.author;
+      newBook.price = book.price
+    "
+  >
+    to update
+  </button>
 </div>
 <h3>for newBook Icon</h3>
 <app-upload (fileImage)="newBook.icon = $event"></app-upload>
 
 <div class="form-group">
   <label>bookName</label>
-  <input class="form-control" [(ngModel)]="newBook.bookName" type="text">
+  <input class="form-control" [(ngModel)]="newBook.bookName" type="text" />
   <label>category</label>
-  <input class="form-control" [(ngModel)]="newBook.category" type="text">
+  <input class="form-control" [(ngModel)]="newBook.category" type="text" />
   <label>author</label>
-  <input class="form-control" [(ngModel)]="newBook.author" type="text">
+  <input class="form-control" [(ngModel)]="newBook.author" type="text" />
   <label>price</label>
-  <input class="form-control" [(ngModel)]="newBook.price" type="number">
+  <input class="form-control" [(ngModel)]="newBook.price" type="number" />
   <button (click)="addOneBook()">add New Book</button>
   <button (click)="updateOneBook(newBook.id)" *ngIf="isEdit">update</button>
 </div>
@@ -60,33 +73,6 @@
   <button (click)="updateOneMyBook(newMyBook.id)" *ngIf="isMyEdit">update</button>
 </div>
 -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!--
 <h1 id="tableLabel">Weather forecast</h1>
